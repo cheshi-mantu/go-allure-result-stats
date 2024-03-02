@@ -22,7 +22,7 @@ jobs:
         if: matrix.os == 'windows'
         id: ext
       - run: |
-          make build
+            go build -o allurectl_${{ matrix.os }}_${{ matrix.arch }}${{steps.ext.outputs.name}} 
         env:
           GOOS: ${{ matrix.os }}
           GOARCH: ${{ matrix.arch }}
