@@ -3,6 +3,7 @@ name: Release
 on:
   release:
     types: [published]
+  workflow_dispatch:
 
 jobs:
   publish:
@@ -10,7 +11,7 @@ jobs:
     strategy:
       matrix:
         os: [ linux, darwin ]
-        arch: [ amd64, arm64,]
+        arch: [ amd64, arm64]
         # exclude:
     steps:
       - uses: actions/checkout@v2
@@ -22,14 +23,20 @@ jobs:
         if: matrix.os == 'windows'
         id: ext
       - run: |
-            go build -o allurestat_${{ matrix.os }}_${{ matrix.arch }}${{steps.ext.outputs.name}} 
+          go build -o allurestat_${{ matrix.os }}_${{ matrix.arch }}${{steps.ext.outputs.name}} 
+          gh auth login
+          gh auth status
         env:
           GOOS: ${{ matrix.os }}
           GOARCH: ${{ matrix.arch }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: |
+          gh auth login
       - name: "Upload binaries"
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
           asset_path: allurestat_${{ matrix.os }}_${{ matrix.arch }}${{steps.ext.outputs.name}}
