@@ -28,15 +28,15 @@ jobs:
           GOOS: ${{ matrix.os }}
           GOARCH: ${{ matrix.arch }}
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-      - run: |
-          gh auth login
-          gh auth status
-      # - name: "Upload binaries"
-      #   uses: actions/upload-release-asset@v1
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   with:
-      #     upload_url: ${{ github.event.release.upload_url }}
-      #     asset_path: allurestat_${{ matrix.os }}_${{ matrix.arch }}${{steps.ext.outputs.name}}
-      #     asset_name: allurestat_${{ matrix.os }}_${{ matrix.arch }}${{steps.ext.outputs.name}}
-      #     asset_content_type: application/octet-stream
+      # - run: |
+      #     gh auth login
+      #     gh auth status
+      - name: "Upload binaries"
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: allurestat_${{ matrix.os }}_${{ matrix.arch }}${{steps.ext.outputs.name}}
+          asset_name: allurestat_${{ matrix.os }}_${{ matrix.arch }}${{steps.ext.outputs.name}}
+          asset_content_type: application/octet-stream
