@@ -58,7 +58,7 @@ func main() {
 	}
 
 	for status, count := range statusCounts {
-		envVarName := fmt.Sprintf("ALLURE_%s", strings.ToUpper(status))
+		envVarName := fmt.Sprintf("ALLURE_STAT_%s", strings.ToUpper(status))
 		envVarValue := fmt.Sprintf("%d", count)
 		err := os.Setenv(envVarName, envVarValue)
 		if err != nil {
