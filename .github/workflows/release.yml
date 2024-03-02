@@ -22,10 +22,7 @@ jobs:
         if: matrix.os == 'windows'
         id: ext
       - run: |
-          make \
-            EXTENSION_NAME=${{steps.ext.outputs.name}} \
-            MAIN_VERSION=${GITHUB_REF:10} \
-            build
+          make build
         env:
           GOOS: ${{ matrix.os }}
           GOARCH: ${{ matrix.arch }}
