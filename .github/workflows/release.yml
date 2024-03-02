@@ -27,7 +27,7 @@ jobs:
         env:
           GOOS: ${{ matrix.os }}
           GOARCH: ${{ matrix.arch }}
-          GITHUB_TOKEN:  ${{ github.token }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
       - run: |
           gh auth login
           gh auth status
