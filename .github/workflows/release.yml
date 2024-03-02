@@ -23,7 +23,6 @@ jobs:
         id: ext
       - run: |
             go build -o allurestat_${{ matrix.os }}_${{ matrix.arch }}${{steps.ext.outputs.name}} 
-            where allurestat_${{ matrix.os }}_${{ matrix.arch }}
         env:
           GOOS: ${{ matrix.os }}
           GOARCH: ${{ matrix.arch }}
