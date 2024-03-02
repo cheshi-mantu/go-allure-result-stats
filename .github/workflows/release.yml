@@ -28,7 +28,7 @@ jobs:
       #     gh auth login
       #     gh auth status
       - name: "Upload binaries"
-        uses: actions/upload-release-asset@v1.1.0
+        uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         with:
