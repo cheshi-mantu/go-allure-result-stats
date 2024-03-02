@@ -33,7 +33,7 @@ $(./allurestat)
   - BROKEN
   - SKIPPED
 
-#### Example
+### Example
 
 Gitlab pipeline prints the stats for 8 successfully passed tests.
 
