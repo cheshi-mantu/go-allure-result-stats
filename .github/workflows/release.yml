@@ -24,21 +24,19 @@ jobs:
         id: ext
       - run: |
           go build -o allurestat_${{ matrix.os }}_${{ matrix.arch }}${{steps.ext.outputs.name}} 
-          gh auth login
-          gh auth status
         env:
           GOOS: ${{ matrix.os }}
           GOARCH: ${{ matrix.arch }}
-          GH_TOKEN:  ${{ github.token }}
+          GITHUB_TOKEN:  ${{ github.token }}
       - run: |
           gh auth login
-      - name: "Upload binaries"
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GH_TOKEN:  ${{ github.token }}
-        with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: allurestat_${{ matrix.os }}_${{ matrix.arch }}${{steps.ext.outputs.name}}
-          asset_name: allurestat_${{ matrix.os }}_${{ matrix.arch }}${{steps.ext.outputs.name}}
-          asset_content_type: application/octet-stream
+          gh auth status
+      # - name: "Upload binaries"
+      #   uses: actions/upload-release-asset@v1
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     upload_url: ${{ github.event.release.upload_url }}
+      #     asset_path: allurestat_${{ matrix.os }}_${{ matrix.arch }}${{steps.ext.outputs.name}}
+      #     asset_name: allurestat_${{ matrix.os }}_${{ matrix.arch }}${{steps.ext.outputs.name}}
+      #     asset_content_type: application/octet-stream
