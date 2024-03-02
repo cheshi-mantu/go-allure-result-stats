@@ -22,8 +22,8 @@ jobs:
         if: matrix.os == 'windows'
         id: ext
       - run: |
-            go build -o allurectl_${{ matrix.os }}_${{ matrix.arch }}${{steps.ext.outputs.name}} 
-            where allurectl_${{ matrix.os }}_${{ matrix.arch }}
+            go build -o allurestat_${{ matrix.os }}_${{ matrix.arch }}${{steps.ext.outputs.name}} 
+            where allurestat_${{ matrix.os }}_${{ matrix.arch }}
         env:
           GOOS: ${{ matrix.os }}
           GOARCH: ${{ matrix.arch }}
@@ -33,6 +33,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: allurestat_${{ matrix.os }}_${{ matrix.arch }}${{steps.ext.outputs.name}}
+          asset_path: ./allurestat_${{ matrix.os }}_${{ matrix.arch }}${{steps.ext.outputs.name}}
           asset_name: allurestat_${{ matrix.os }}_${{ matrix.arch }}${{steps.ext.outputs.name}}
           asset_content_type: application/octet-stream
