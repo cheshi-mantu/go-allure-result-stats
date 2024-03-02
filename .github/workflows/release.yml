@@ -19,11 +19,7 @@ jobs:
         with:
           go-version: '^1.18'
       - run: |
-          echo "::set-output name=name::.exe"
-        if: matrix.os == 'windows'
-        id: ext
-      - run: |
-          go build -o ./allurestat_${{ matrix.os }}_${{ matrix.arch }}${{steps.ext.outputs.name}} 
+          go build -o ./allurestat_${{ matrix.os }}_${{ matrix.arch }}
         env:
           GOOS: ${{ matrix.os }}
           GOARCH: ${{ matrix.arch }}
@@ -32,11 +28,11 @@ jobs:
       #     gh auth login
       #     gh auth status
       - name: "Upload binaries"
-        uses: actions/upload-release-asset@v1
+        uses: actions/upload-release-asset@v1.1.0
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./allurestat_${{ matrix.os }}_${{ matrix.arch }}${{steps.ext.outputs.name}}
-          asset_name: allurestat_${{ matrix.os }}_${{ matrix.arch }}${{steps.ext.outputs.name}}
+          asset_path: ./allurestat_${{ matrix.os }}_${{ matrix.arch }}
+          asset_name: allurestat_${{ matrix.os }}_${{ matrix.arch }}
           asset_content_type: application/octet-stream
