@@ -10,18 +10,8 @@ jobs:
     strategy:
       matrix:
         os: [ linux, windows, darwin ]
-        arch: [ 386, amd64, arm64, ppc64, ppc64le ]
-        exclude:
-          - os: darwin
-            arch: 386
-          - os: darwin
-            arch: ppc64
-          - os: windows
-            arch: ppc64
-          - os: darwin
-            arch: ppc64le
-          - os: windows
-            arch: ppc64le
+        arch: [ amd64, arm64,]
+        # exclude:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-go@v4
@@ -45,6 +35,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./bin/allurectl_${{ matrix.os }}_${{ matrix.arch }}${{steps.ext.outputs.name}}
-          asset_name: allurectl_${{ matrix.os }}_${{ matrix.arch }}${{steps.ext.outputs.name}}
+          asset_path: ./bin/allurestat_${{ matrix.os }}_${{ matrix.arch }}${{steps.ext.outputs.name}}
+          asset_name: allurestat_${{ matrix.os }}_${{ matrix.arch }}${{steps.ext.outputs.name}}
           asset_content_type: application/octet-stream
